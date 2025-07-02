@@ -1,6 +1,7 @@
 import socketserver
 from .handler import PLCRequestHandler
 from event_logger import logger
+import sys
 
 class PLCServer:
     """
@@ -8,7 +9,16 @@ class PLCServer:
     """
 
     def __init__(self, host: str, port: int):
-        self.server = socketserver.ThreadingTCPServer((host, port), PLCRequestHandler)
+        logger.info("Server starting...")
+        try:
+            self.server = socketserver.ThreadingTCPServer((host, port), PLCRequestHandler)
+            logger.info("Server stared.")
+        except OSError as e:
+            logger.exception(f"Failed to bind TCP server on {host}:{port} - {e}")
+            sys.exit(1)
+        except Exception as e:
+            logger.exception(f"Unexpected error while starting TCP server on {host}:{port} – {e}")
+            sys.exit(1)
 
     def start(self):
         port = self.server.server_address[1]
