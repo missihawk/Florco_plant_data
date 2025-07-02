@@ -14,12 +14,11 @@ class PLCRequestHandler(socketserver.BaseRequestHandler):
         # Receive data
         try:
             data = self.request.recv(1024)
-            logger.info(f"\n[{now}] From {client_ip}:")
-            logger.info(f" - Raw Bytes: {data}")
+            logger.info(f"From {client_ip} - Raw: {data}")
 
             try:
                 decoded = data.decode('utf-8').strip()
-                logger.info(f" - Decoded  : {decoded}")
+                logger.info(f"From {client_ip} - Decoded: {decoded}")
             except UnicodeDecodeError:
                 logger.warning(" - Could not decode message as UTF-8")
 

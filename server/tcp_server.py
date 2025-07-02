@@ -1,4 +1,5 @@
 import socketserver
+import socket
 from .handler import PLCRequestHandler
 from event_logger import logger
 import sys
@@ -9,10 +10,9 @@ class PLCServer:
     """
 
     def __init__(self, host: str, port: int):
-        logger.info("Server starting...")
+        logger.info(f"Server starting on {host}:{port}...")
         try:
             self.server = socketserver.ThreadingTCPServer((host, port), PLCRequestHandler)
-            logger.info("Server started.")
         except OSError as e:
             logger.exception(f"Failed to bind TCP server on {host}:{port} - {e}")
             sys.exit(1)
@@ -21,8 +21,10 @@ class PLCServer:
             sys.exit(1)
 
     def start(self):
+        hostname = socket.gethostname()
+        IPAddr = socket.gethostbyname(hostname)
         port = self.server.server_address[1]
-        logger.info(f"TCP-server started on port {port}")
+        logger.info(f"TCP-server now listening on {IPAddr}:{port}")
 
         try:
             self.server.serve_forever()
@@ -31,4 +33,4 @@ class PLCServer:
             self.server.shutdown()
         finally:
             self.server.server_close()
-            logger.info("Server shut down.")
+            logger.info("Server shut down")
