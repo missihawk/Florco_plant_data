@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtuele omgeving
+.venv/
+venv/
+
+# Logs
+logs/
+raw_logs/
+*.log
+*.bin
+
+# Editor settings
+.vscode/
+
+# Config bestanden
+.env
+.env.*
