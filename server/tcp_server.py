@@ -12,7 +12,7 @@ class PLCServer:
         logger.info("Server starting...")
         try:
             self.server = socketserver.ThreadingTCPServer((host, port), PLCRequestHandler)
-            logger.info("Server stared.")
+            logger.info("Server started.")
         except OSError as e:
             logger.exception(f"Failed to bind TCP server on {host}:{port} - {e}")
             sys.exit(1)
@@ -31,4 +31,4 @@ class PLCServer:
             self.server.shutdown()
         finally:
             self.server.server_close()
-            logger.info("Server shut down")
+            logger.info("Server shut down.")
