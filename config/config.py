@@ -5,7 +5,7 @@ load_dotenv()
 
 class Config:
     # Connection configuration
-    TCP_HOST = os.getenv("TCP_HOST", "192.168.174.251")
+    TCP_HOST = os.getenv("TCP_HOST", "0.0.0.0")
     TCP_PORT = int(os.getenv("TCP_PORT", 4000))
 
     # Database configuration
