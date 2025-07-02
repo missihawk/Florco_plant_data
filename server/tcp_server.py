@@ -10,10 +10,14 @@ class PLCServer:
         self.server = socketserver.ThreadingTCPServer((host, port), PLCRequestHandler)
 
     def start(self):
-        print(f"TCP-server started on {self.server.server_address[1]}")
+        port = self.server.server_address[1]
+        print(f"TCP-server started on port {port}")
+
         try:
             self.server.serve_forever()
         except KeyboardInterrupt:
-            print("Server closed.")
+            print("Shutdown command received from user - shutting down server...")
+            self.server.shutdown()
         finally:
             self.server.server_close()
+            print("Server shut down")
