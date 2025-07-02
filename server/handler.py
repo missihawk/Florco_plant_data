@@ -21,5 +21,8 @@ class PLCRequestHandler(socketserver.BaseRequestHandler):
                 print(f" - Decoded  : {decoded}")
             except UnicodeDecodeError:
                 print(" - Could not decode message as UTF-8")
+
         except ConnectionResetError:
             print(f"[{now}] Connection lost from {client_ip}")
+        except Exception as e:
+            print(f"[{now}] Unexpected error from {client_ip}: {e}")
