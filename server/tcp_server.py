@@ -1,5 +1,6 @@
 import socketserver
 from .handler import PLCRequestHandler
+from event_logger import logger
 
 class PLCServer:
     """
@@ -11,13 +12,13 @@ class PLCServer:
 
     def start(self):
         port = self.server.server_address[1]
-        print(f"TCP-server started on port {port}")
+        logger.info(f"TCP-server started on port {port}")
 
         try:
             self.server.serve_forever()
         except KeyboardInterrupt:
-            print("Shutdown command received from user - shutting down server...")
+            logger.info("Shutdown command received from user - shutting down server...")
             self.server.shutdown()
         finally:
             self.server.server_close()
-            print("Server shut down")
+            logger.info("Server shut down")

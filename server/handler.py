@@ -1,5 +1,6 @@
 import socketserver
 from datetime import datetime
+from event_logger import logger
 
 class PLCRequestHandler(socketserver.BaseRequestHandler):
     """
@@ -13,16 +14,16 @@ class PLCRequestHandler(socketserver.BaseRequestHandler):
         # Receive data
         try:
             data = self.request.recv(1024)
-            print(f"\n[{now}] From {client_ip}:")
-            print(f" - Raw Bytes: {data}")
+            logger.info(f"\n[{now}] From {client_ip}:")
+            logger.info(f" - Raw Bytes: {data}")
 
             try:
                 decoded = data.decode('utf-8').strip()
-                print(f" - Decoded  : {decoded}")
+                logger.info(f" - Decoded  : {decoded}")
             except UnicodeDecodeError:
-                print(" - Could not decode message as UTF-8")
+                logger.warning(" - Could not decode message as UTF-8")
 
         except ConnectionResetError:
-            print(f"[{now}] Connection lost from {client_ip}")
+            logger.warning(f"[{now}] Connection lost from {client_ip}")
         except Exception as e:
-            print(f"[{now}] Unexpected error from {client_ip}: {e}")
+            logger.exception(f"[{now}] Unexpected error from {client_ip}: {e}")
