@@ -7,7 +7,7 @@ os.makedirs("logs", exist_ok=True)
 
 # Create main logger object
 logger = logging.getLogger("plc_logger")
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 # Create formatter
 formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
@@ -24,6 +24,7 @@ file_handler.setFormatter(formatter)
 
 # Create console handler (optional: shows in terminal)
 console_handler = logging.StreamHandler()
+logger.setLevel(logging.INFO)
 console_handler.setFormatter(formatter)
 
 # Add both handlers to the logger

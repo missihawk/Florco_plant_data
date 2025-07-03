@@ -14,7 +14,7 @@ class PLCRequestHandler(socketserver.BaseRequestHandler):
         # Receive data
         try:
             data = self.request.recv(1024)
-            logger.info(f"From {client_ip} - Raw: {data}")
+            logger.debug(f"From {client_ip} - Raw: {data}")
 
             try:
                 decoded = data.decode('utf-8').strip()
