@@ -24,7 +24,7 @@ file_handler.setFormatter(formatter)
 
 # Create console handler (optional: shows in terminal)
 console_handler = logging.StreamHandler()
-logger.setLevel(logging.INFO)
+console_handler.setLevel(logging.INFO)
 console_handler.setFormatter(formatter)
 
 # Add both handlers to the logger
